@@ -65,11 +65,12 @@ if __name__ == "__main__":
     model_path = 'faster_rcnn/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.7
-    cap = cv2.VideoCapture('video.mp4')
+    cap = cv2.VideoCapture('video1.mp4')
     
     sec = 0
-    frameRate = 0.5
+    frameRate = 1.5
     success = getFrame(sec)
+    
 
 
 #rotation angle in degree
@@ -93,7 +94,8 @@ if __name__ == "__main__":
             if classes[i] == 1 and scores[i] > threshold:
                 box = boxes[i]
                 cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)
-        print(count)
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(img,"Person detected {}".format(str(count)),(10,50), font, 0.75,(255,0,0),1,cv2.LINE_AA)
         cv2.imshow("preview", img)
         sec = sec + frameRate
         sec = round(sec, 2)
